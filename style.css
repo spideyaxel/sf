@@ -652,4 +652,11 @@ img { max-width: 100%; height: auto; display: block; }
     .text-gradient { font-size: 2.2rem; }
     #hero h2 { font-size: 1.3rem; }
     .hero-buttons { flex-direction: column; }
-    .event-banner { flex-directi
+    .event-banner { flex-direction: column; gap: 2rem; text-align: center; padding: 2rem; }
+    .footer-grid { grid-template-columns: 1fr; text-align: center; }
+    .footer-links { align-items: center; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .lightbox-prev, .lightbox-next { bottom: 2rem; top: auto; }
+    .lightbox-prev { left: 30%; }
+    .lightbox-next { right: 30%; }
+}h
