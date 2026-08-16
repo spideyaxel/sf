@@ -3,7 +3,7 @@
   "metiers": {
     "police-nationale": {
       "nom": "Police Nationale",
-      "statut": "open"
+      "statut": "closed"
     },
     "gendarmerie": {
       "nom": "Gendarmerie Nationale",
@@ -11,19 +11,19 @@
     },
     "pompiers": {
       "nom": "Sapeurs-Pompiers",
-      "statut": "closed"
+      "statut": "open"
     },
     "samu": {
       "nom": "SAMU / Ambulanciers",
-      "statut": "soon"
+      "statut": "open"
     },
     "rtcf": {
       "nom": "Services Routiers (RTCF)",
-      "statut": "closed"
+      "statut": "open"
     },
     "ratp": {
       "nom": "RATP / Chauffeur de bus",
-      "statut": "open"
+      "statut": "closed"
     },
     "citoyen": {
       "nom": "Citoyen",
