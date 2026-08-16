@@ -390,3 +390,202 @@
                     if (this.x > canvas.width) this.x = 0;
                     else if (this.x < 0) this.x = canvas.width;
                     if (this.y > canvas.height) this.y = 0;
+                    else if (this.y < 0) this.y = canvas.height;
+                }
+                draw() {
+                    ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < 40; i++) particles.push(new Particle());
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+        }
+
+        /* ==============================
+           4. API ROBLOX (STATS UNIQUEMENT)
+           ============================== */
+        async function fetchRobloxStats() {
+            // Sélecteurs Stats
+            const statPlaying = document.querySelector('[data-stat="playing"]');
+            const statVisits = document.querySelector('[data-stat="visits"]');
+            const statFavs = document.querySelector('[data-stat="favorites"]');
+            const statMembers = document.querySelector('[data-stat="members"]');
+            const iconBtn = document.querySelector('#refresh-stats i');
+            
+            // Identifiants
+            const placeId = "8392374718"; 
+            const groupId = "13409049"; 
+
+            iconBtn.classList.add('fa-spin');
+            
+            try {
+                // 1. Récupérer le Universe ID
+                const univRes = await fetch(`https://apis.roproxy.com/universes/v1/places/${placeId}/universe`);
+                if (!univRes.ok) throw new Error("Erreur API Universe");
+                const univData = await univRes.json();
+                const universeId = univData.universeId;
+
+                // 2. Récupérer les stats de jeu
+                const gameRes = await fetch(`https://games.roproxy.com/v1/games?universeIds=${universeId}`);
+                if (!gameRes.ok) throw new Error("Erreur API Games");
+                const gameData = await gameRes.json();
+                
+                if (gameData && gameData.data && gameData.data.length > 0) {
+                    const stats = gameData.data[0];
+                    statPlaying.innerText = stats.playing.toLocaleString('fr-FR');
+                    statVisits.innerText = stats.visits.toLocaleString('fr-FR');
+                    statFavs.innerText = stats.favoritedCount.toLocaleString('fr-FR');
+                }
+
+                // 3. Récupérer les membres du groupe
+                const groupRes = await fetch(`https://groups.roproxy.com/v1/groups/${groupId}`);
+                if (groupRes.ok) {
+                    const groupData = await groupRes.json();
+                    if (groupData && groupData.memberCount) {
+                        statMembers.innerText = groupData.memberCount.toLocaleString('fr-FR');
+                    }
+                }
+
+            } catch (error) {
+                console.error('Erreur lors de la récupération des données Roblox:', error);
+                // Fallback en cas de crash de l'API
+                statPlaying.innerText = '—';
+                statVisits.innerText = '—';
+                statFavs.innerText = '—';
+                statMembers.innerText = '—';
+            } finally {
+                setTimeout(() => iconBtn.classList.remove('fa-spin'), 500);
+            }
+        }
+        
+        // Charger au démarrage
+        fetchRobloxStats();
+
+        /* ==============================
+           5. COMPTE À REBOURS ÉVÉNEMENT
+           ============================== */
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 5);
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = targetDate - now;
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const mins = Math.floor((diff / 1000 / 60) % 60);
+                const secs = Math.floor((diff / 1000) % 60);
+
+                document.getElementById('cd-days').innerText = days.toString().padStart(2, '0');
+                document.getElementById('cd-hours').innerText = hours.toString().padStart(2, '0');
+                document.getElementById('cd-mins').innerText = mins.toString().padStart(2, '0');
+                document.getElementById('cd-secs').innerText = secs.toString().padStart(2, '0');
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        /* ==============================
+           6. GALERIE LIGHTBOX
+           ============================== */
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const galleryImages = Array.from(document.querySelectorAll('.gallery-img')).map(img => img.src);
+        let currentImgIndex = 0;
+
+        function openLightbox(index) {
+            currentImgIndex = index;
+            lightboxImg.src = galleryImages[currentImgIndex];
+            lightbox.classList.add('active');
+            lightbox.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            lightbox.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeLightbox(dir) {
+            currentImgIndex += dir;
+            if (currentImgIndex < 0) currentImgIndex = galleryImages.length - 1;
+            if (currentImgIndex >= galleryImages.length) currentImgIndex = 0;
+            lightboxImg.style.opacity = 0;
+            setTimeout(() => {
+                lightboxImg.src = galleryImages[currentImgIndex];
+                lightboxImg.style.opacity = 1;
+            }, 200);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+                closeSearch();
+            }
+            if (e.key === 'ArrowRight' && lightbox.classList.contains('active')) changeLightbox(1);
+            if (e.key === 'ArrowLeft' && lightbox.classList.contains('active')) changeLightbox(-1);
+        });
+
+        /* ==============================
+           7. RECHERCHE GLOBALE
+           ============================== */
+        const searchModal = document.getElementById('search-modal');
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+
+        const searchData = [
+            { title: "Police Nationale (Métier)", url: "métier.html" },
+            { title: "Sapeurs-Pompiers (Métier)", url: "métiers.html" },
+            { title: "Ambulanciers / SAMU (Métier)", url: "#metiers" },
+            { title: "Règles du RP (Guide)", url: "guides.html#regles" },
+            { title: "Codes Radio (Guide)", url: "guides.html#radio" }
+        ];
+
+        function openSearch() {
+            searchModal.classList.add('active');
+            searchModal.setAttribute('aria-hidden', 'false');
+            searchInput.focus();
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSearch() {
+            searchModal.classList.remove('active');
+            searchModal.setAttribute('aria-hidden', 'true');
+            searchInput.value = '';
+            searchResults.innerHTML = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            searchResults.innerHTML = '';
+            if (query.length < 2) return;
+            
+            const results = searchData.filter(item => item.title.toLowerCase().includes(query));
+            if (results.length === 0) {
+                searchResults.innerHTML = '<li class="no-result">Aucun résultat trouvé.</li>';
+                return;
+            }
+            results.forEach(res => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="${res.url}" onclick="closeSearch()">${res.title}</a>`;
+                searchResults.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>
