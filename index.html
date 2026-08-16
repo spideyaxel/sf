@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secours de France RP | Portail Communautaire Fan</title>
+    
+    <!-- SEO & Open Graph -->
+    <meta name="description" content="Découvrez Secours de France RP, l'expérience RP française ultime sur Roblox. Interventions, secours, véhicules et univers communautaire. Projet fan non officiel.">
+    <meta property="og:title" content="Secours de France RP | Fan Site">
+    <meta property="og:description" content="L'expérience RP française sur Roblox. Rejoignez la communauté !">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://secours2france-fan.fr">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1555864326-5cf22ef123cf?auto=format&fit=crop&w=1200&q=80">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%231717C9'/><text y='50%' x='50%' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='sans-serif' font-size='40'>SF</text></svg>">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Search Modal -->
+    <div id="search-modal" class="modal" aria-hidden="true">
+        <div class="modal-overlay" onclick="closeSearch()"></div>
+        <div class="modal-content glass-panel">
+            <div class="search-header">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search-input" placeholder="Rechercher (métiers, véhicules, guides...)" aria-label="Recherche">
+                <button class="close-btn" onclick="closeSearch()" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <ul id="search-results" class="search-results"></ul>
+        </div>
+    </div>
+
+    <!-- Lightbox Gallery -->
+    <div id="lightbox" class="lightbox" aria-hidden="true">
+        <button class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
+        <button class="lightbox-prev" onclick="changeLightbox(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <img id="lightbox-img" src="" alt="Galerie agrandie">
+        <button class="lightbox-next" onclick="changeLightbox(1)"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Secours de France RP</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="#hero">Accueil</a>
+                <a href="404.html">Le jeu</a>
+                <a href="métiers.html">Métiers</a>
+                <a href="404.html">Véhicules</a>
+                <a href="404.html">Événements</a>
+                <a href="404.html">Galerie</a>
+                <a href="404.html">Guides</a>
+                <button class="search-trigger" onclick="openSearch()" aria-label="Rechercher"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <a href="https://discord.gg/s2f" target="_blank" rel="noopener noreferrer" class="btn btn-discord">
+                    <i class="fa-brands fa-discord"></i> Discord
+                </a>
+            </div>
+
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-menu">
+        <div class="mobile-links">
+            <a href="#hero">Accueil</a>
+            <a href="404.html">Le jeu</a>
+            <a href="métiers.html">Métiers</a>
+            <a href="404.html">Véhicules</a>
+            <a href="404.html">Événements</a>
+            <a href="#404.html">Galerie</a>
+            <a href="404.html">Guides</a>
+            <a href="https://discord.gg/s2f" target="_blank" rel="noopener noreferrer" class="btn btn-discord w-full"><i class="fa-brands fa-discord"></i> Rejoindre le Discord</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header id="hero">
+        <canvas id="particles-canvas"></canvas>
+        <div class="hero-glow glow-1"></div>
+        <div class="hero-glow glow-2"></div>
+        
+        <div class="hero-content reveal">
+            <span class="badge">PROJET FAN NON OFFICIEL</span>
+            <h1 class="text-gradient">SECOURS DE FRANCE RP</h1>
+            <h2>L'expérience RP française sur Roblox.</h2>
+            <p>Interventions, secours, véhicules et immersion totale dans un univers roleplay communautaire premium et en constante évolution.</p>
+            
+            <div class="hero-buttons">
+                <a href="https://www.roblox.com/fr/games/8392374718/Secours-de-France-RP" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">
+                    <i class="fa-solid fa-gamepad"></i> JOUER SUR ROBLOX
+                </a>
+                <a href="https://discord.gg/s2f" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                    <i class="fa-brands fa-discord"></i> REJOINDRE DISCORD
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Statistics Section -->
+        <section id="stats" class="container reveal">
+            <div class="stats-header">
+                <h3>Statistiques en temps réel</h3>
+                <button id="refresh-stats" class="btn-icon" aria-label="Actualiser" onclick="fetchRobloxStats()">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
+            </div>
+            <div class="grid stats-grid">
+                <div class="stat-card glass-panel">
+                    <i class="fa-solid fa-users text-blue"></i>
+                    <div class="stat-info">
+                        <span class="stat-value" data-stat="playing">—</span>
+                        <span class="stat-label">Joueurs connectés</span>
+                    </div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <i class="fa-solid fa-eye text-red"></i>
+                    <div class="stat-info">
+                        <span class="stat-value" data-stat="visits">—</span>
+                        <span class="stat-label">Visites</span>
+                    </div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <i class="fa-solid fa-star text-yellow"></i>
+                    <div class="stat-info">
+                        <span class="stat-value" data-stat="favorites">—</span>
+                        <span class="stat-label">Favoris</span>
+                    </div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <i class="fa-solid fa-user-group text-blue"></i>
+                    <div class="stat-info">
+                        <span class="stat-value" data-stat="members">—</span>
+                        <span class="stat-label">Membres du groupe</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Le Jeu -->
+        <section id="jeu" class="container section-padding reveal">
+            <div class="game-showcase glass-panel">
+                <div class="game-img">
+                    <img src="https://secours2france.fr/admin/uploads.php?path=2026/05/22cf89efd0c2d1a1.png" alt="Roblox Secours de France RP" loading="lazy" decoding="async">
+                </div>
+                <div class="game-info">
+                    <h2>Découvrez Secours de France RP</h2>
+                    <p class="creator">Créé par <strong>Secours de France Studio</strong></p>
+                    <p class="desc">Plongez dans un univers immersif où vous pouvez incarner les forces de l'ordre, les services d'incendie et de secours, ou mener une vie civile paisible. Une carte détaillée, des véhicules réalistes et une communauté active vous attendent.</p>
+                    <div class="game-tags">
+                        <span><i class="fa-solid fa-tag"></i> Roleplay</span>
+                        <span><i class="fa-solid fa-tag"></i> Simulation</span>
+                        <span><i class="fa-solid fa-tag"></i> France</span>
+                    </div>
+                    <div class="game-actions">
+                        <a href="https://www.roblox.com/fr/games/8392374718/Secours-de-France-RP" class="btn btn-primary"><i class="fa-solid fa-play"></i> Jouer maintenant</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Métiers -->
+        <section id="metiers" class="container section-padding reveal">
+            <div class="section-header">
+                <h2>Les Métiers</h2>
+                <a href="métiers.html" class="link-more">Découvrir tous les métiers <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+            <div class="grid jobs-grid">
+                <div class="job-card glass-panel">
+                    <i class="fa-solid fa-building-shield"></i>
+                    <h3>Police Nationale</h3>
+                    <p>Maintenez l'ordre, patrouillez dans les rues et répondez aux appels d'urgence.</p>
+                </div>
+                <div class="job-card glass-panel">
+                    <i class="fa-solid fa-fire-extinguisher"></i>
+                    <h3>Sapeurs-Pompiers</h3>
+                    <p>Luttez contre les incendies et effectuez des missions de sauvetage périlleuses.</p>
+                </div>
+                <div class="job-card glass-panel">
+                    <i class="fa-solid fa-truck-medical"></i>
+                    <h3>Ambulanciers / SAMU</h3>
+                    <p>Intervenez rapidement pour prodiguer les premiers soins et transporter les blessés.</p>
+                </div>
+                <div class="job-card glass-panel">
+                    <i class="fa-solid fa-road-barrier"></i>
+                    <h3>Agents d'autoroute</h3>
+                    <p>Sécurisez les voies, balisez les accidents et gérez le trafic.</p>
+                </div>
+            </div>
+    
+
+        <!-- Vidéos & Galerie -->
+        <section class="container section-padding grid two-cols">
+            <!-- Vidéos -->
+            <div id="videos" class="reveal">
+                <div class="section-header">
+                    <h2>Dernières vidéos</h2>
+                    <a href="videos.html" class="link-more">Toutes <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                <div class="video-card glass-panel">
+                    <div class="video-thumb" style="background-image: url('https://secours2france.fr/admin/uploads.php?path=2026/05/e30423b37bf8e345.png')">
+                        <button class="play-btn"><i class="fa-solid fa-play"></i></button>
+                    </div>
+                    <div class="video-info">
+                        <h3>Trailer Officiel</h3>
+                        <span class="date">Récemment</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Galerie -->
+            <div id="galerie" class="reveal">
+                <div class="section-header">
+                    <h2>Galerie communautaire</h2>
+                    <a href="galerie.html" class="link-more">Voir plus <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                <div class="gallery-grid">
+                    <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=400&q=80" alt="RP 1" class="gallery-img" onclick="openLightbox(0)">
+                    <img src="https://images.unsplash.com/photo-1587309995874-88899818ab44?auto=format&fit=crop&w=400&q=80" alt="RP 2" class="gallery-img" onclick="openLightbox(1)">
+                    <img src="https://images.unsplash.com/photo-1533468432328-91893c528643?auto=format&fit=crop&w=400&q=80" alt="RP 3" class="gallery-img" onclick="openLightbox(2)">
+                    <img src="https://images.unsplash.com/photo-1627485937980-221c88ce04ea?auto=format&fit=crop&w=400&q=80" alt="RP 4" class="gallery-img" onclick="openLightbox(3)">
+                </div>
+            </div>
+        </section>
+
+        <!-- Recrutements & Guides -->
+        <section class="container section-padding grid two-cols reveal">
+            <div id="recrutements" class="glass-panel p-6">
+                <h2>Statut des recrutements</h2>
+                <ul class="recruitment-list">
+                    <li><span>Police Nationale</span> <span class="badge status-open">Ouvert</span></li>
+                    <li><span>Sapeurs-Pompiers</span> <span class="badge status-closed">Fermé</span></li>
+                    <li><span>SAMU</span> <span class="badge status-soon">À venir</span></li>
+                    <li><span>Modération Staff</span> <span class="badge status-closed">Fermé</span></li>
+                </ul>
+                <a href="recrutements.html" class="btn btn-outline w-full mt-4">Voir les prérequis</a>
+            </div>
+            
+            <div id="guides" class="glass-panel p-6">
+                <h2>Guides rapides</h2>
+                <div class="guides-links">
+                    <a href="guides.html#debutant"><i class="fa-solid fa-book"></i> Guide du débutant</a>
+                    <a href="guides.html#regles"><i class="fa-solid fa-scale-balanced"></i> Règles du RP</a>
+                    <a href="guides.html#radio"><i class="fa-solid fa-walkie-talkie"></i> Codes Radio</a>
+                    <a href="guides.html#faq"><i class="fa-solid fa-circle-question"></i> Foire aux questions</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Communauté -->
+        <section id="communaute" class="container section-padding text-center reveal">
+            <h2>Rejoins la communauté</h2>
+            <p class="mb-6 text-muted">Plus de 50 000 membres actifs sur nos différentes plateformes.</p>
+            <div class="social-buttons">
+                <a href="https://discord.gg/s2f" target="_blank" class="btn btn-discord btn-lg"><i class="fa-brands fa-discord"></i> Discord</a>
+                <a href="#" target="_blank" class="btn btn-social btn-youtube"><i class="fa-brands fa-youtube"></i> YouTube</a>
+                <a href="#" target="_blank" class="btn btn-social btn-tiktok"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="nav-logo">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Secours de France RP</span>
+                </div>
+                <p class="text-muted mt-2">Le portail fan communautaire francophone dédié à l'univers du jeu.</p>
+                <div class="footer-disclaimer mt-4">
+                    <strong>Projet fan non officiel</strong> — Ce site n'est pas affilié à, sponsorisé par, ou approuvé par Secours de France Studio ou Roblox Corporation.
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <a href="#hero">Accueil</a>
+                <a href="#jeu">Le jeu</a>
+                <a href="#metiers">Métiers</a>
+                <a href="guides.html">Guides</a>
+            </div>
+            <div class="footer-links">
+                <h4>Réseaux</h4>
+                <a href="https://discord.gg/s2f">Discord</a>
+                <a href="https://www.roblox.com">Roblox</a>
+                <a href="#">YouTube</a>
+                <a href="#">TikTok</a>
+            </div>
+            <div class="footer-links">
+                <h4>Légal</h4>
+                <a href="#">Mentions légales</a>
+                <a href="#">Politique de confidentialité</a>
+                <a href="#">À propos du Fan Site</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Secours de France Fan Site. Fait avec passion par la communauté.</p>
+        </div>
+    </footer>
+
+    <script>
+        /* ==============================
+           1. MENU MOBILE & NAVBAR
+           ============================== */
+        const navbar = document.getElementById('navbar');
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-links a');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            mobileBtn.querySelector('i').classList.toggle('fa-bars');
+            mobileBtn.querySelector('i').classList.toggle('fa-xmark');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                mobileBtn.querySelector('i').classList.remove('fa-xmark');
+                mobileBtn.querySelector('i').classList.add('fa-bars');
+            });
+        });
+
+        /* ==============================
+           2. ANIMATIONS AU SCROLL
+           ============================== */
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        /* ==============================
+           3. PARTICULES D'ARRIÈRE-PLAN
+           ============================== */
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!prefersReducedMotion) {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 2;
+                    this.speedX = Math.random() * 0.5 - 0.25;
+                    this.speedY = Math.random() * 0.5 - 0.25;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x > canvas.width) this.x = 0;
+                    else if (this.x < 0) this.x = canvas.width;
+                    if (this.y > canvas.height) this.y = 0;
