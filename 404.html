@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>En cours de développement | Secours de France RP</title>
+
+    <!-- SEO & Open Graph -->
+    <meta name="description" content="Cette page est actuellement en cours de développement.">
+    <meta property="og:title" content="En développement | Secours de France RP">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%231717C9'/><text y='50%' x='50%' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='sans-serif' font-size='40'>SF</text></svg>">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Stylesheet Global -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Animations & Layout Épuré -->
+    <style>
+        .dev-wrapper {
+            min-height: calc(85vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem 1rem;
+        }
+
+        .dev-card {
+            text-align: center;
+            padding: 4rem 2rem;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Animation de l'icône centrale */
+        .animated-icon-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .animated-icon {
+            font-size: 3.5rem;
+            color: #3b82f6;
+            animation: float 4s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        .glow-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, rgba(23, 23, 201, 0) 70%);
+            animation: pulse-glow 2.5s infinite alternate;
+            z-index: 1;
+        }
+
+        /* Keyframes Animations */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(0.85); opacity: 0.5; }
+            100% { transform: scale(1.3); opacity: 0.9; }
+        }
+
+        @media (max-width: 768px) {
+            .dev-card { padding: 2.5rem 1.25rem; }
+            .animated-icon { font-size: 2.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas de Particules -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Secours de France RP</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="jeu.html">Le jeu</a>
+                <a href="metiers.html">Métiers</a>
+                <a href="index.html#vehicules">Véhicules</a>
+                <a href="index.html#evenements">Événements</a>
+                <a href="galerie.html">Galerie</a>
+                <a href="guides.html">Guides</a>
+                <a href="https://discord.gg/s2f" target="_blank" rel="noopener noreferrer" class="btn btn-discord">
+                    <i class="fa-brands fa-discord"></i> Discord
+                </a>
+            </div>
+
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-menu">
+        <div class="mobile-links">
+            <a href="index.html">Accueil</a>
+            <a href="jeu.html">Le jeu</a>
+            <a href="metiers.html">Métiers</a>
+            <a href="index.html#vehicules">Véhicules</a>
+            <a href="index.html#evenements">Événements</a>
+            <a href="galerie.html">Galerie</a>
+            <a href="guides.html">Guides</a>
+            <a href="https://discord.gg/s2f" target="_blank" rel="noopener noreferrer" class="btn btn-discord w-full"><i class="fa-brands fa-discord"></i> Rejoindre le Discord</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="dev-wrapper">
+        <div class="glass-panel dev-card reveal">
+            <div class="animated-icon-container">
+                <div class="glow-ring"></div>
+                <i class="fa-solid fa-code animated-icon"></i>
+            </div>
+            
+            <span class="badge">BIENTÔT DISPONIBLE</span>
+            <h1 class="text-gradient mt-3">Page en cours de développement</h1>
+            <p class="text-muted mt-3">
+                Cette section est actuellement en cours de création.<br>Elle sera très prochainement accessible.
+            </p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="nav-logo">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Secours de France RP</span>
+                </div>
+                <p class="text-muted mt-2">Le portail fan communautaire francophone dédié à l'univers du jeu.</p>
+                <div class="footer-disclaimer mt-4">
+                    <strong>Projet fan non officiel</strong> — Ce site n'est pas affilié à, sponsorisé par, ou approuvé par Secours de France Studio ou Roblox Corporation.
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <a href="index.html">Accueil</a>
+                <a href="jeu.html">Le jeu</a>
+                <a href="metiers.html">Métiers</a>
+                <a href="guides.html">Guides</a>
+            </div>
+            <div class="footer-links">
+                <h4>Réseaux</h4>
+                <a href="https://discord.gg/s2f" target="_blank">Discord</a>
+                <a href="https://www.roblox.com" target="_blank">Roblox</a>
+            </div>
+            <div class="footer-links">
+                <h4>Légal</h4>
+                <a href="#">Mentions légales</a>
+                <a href="#">Politique de confidentialité</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Secours de France Fan Site. Fait avec passion par la communauté.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        /* Menu Mobile & Scroll Navbar */
+        const navbar = document.getElementById('navbar');
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        });
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            mobileBtn.querySelector('i').classList.toggle('fa-bars');
+            mobileBtn.querySelector('i').classList.toggle('fa-xmark');
+        });
+
+        /* Animation Reveal */
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        /* Particules d'arrière-plan */
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!prefersReducedMotion) {
+            const canvas = document.getElementById('particles-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let particles = [];
+                
+                function resizeCanvas() {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                }
+                window.addEventListener('resize', resizeCanvas);
+                resizeCanvas();
+
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * canvas.width;
+                        this.y = Math.random() * canvas.height;
+                        this.size = Math.random() * 2;
+                        this.speedX = Math.random() * 0.4 - 0.2;
+                        this.speedY = Math.random() * 0.4 - 0.2;
+                        this.opacity = Math.random() * 0.5 + 0.1;
+                    }
+                    update() {
+                        this.x += this.speedX;
+                        this.y += this.speedY;
+                        if (this.x > canvas.width) this.x = 0;
+                        else if (this.x < 0) this.x = canvas.width;
+                        if (this.y > canvas.height) this.y = 0;
+                        else if (this.y < 0) this.y = canvas.height;
+                    }
+                    draw() {
+                        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                for (let i = 0; i < 35; i++) particles.push(new Particle());
+
+                function animateParticles() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    particles.forEach(p => { p.update(); p.draw(); });
+                    requestAnimationFrame(animateParticles);
+                }
+                animateParticles();
+            }
+        }
+    </script>
+</body>
+</html>
