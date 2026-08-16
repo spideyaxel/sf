@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Métiers | Secours de France RP - Portail Communautaire Fan</title>
+
+    <!-- SEO & Open Graph -->
+    <meta name="description" content="Découvrez tous les métiers de Secours de France RP sur Roblox : Police Nationale, Gendarmerie, Sapeurs-Pompiers, SAMU, RTCF, RATP et citoyen. Grades, missions et conditions d'accès. Projet fan non officiel.">
+    <meta property="og:title" content="Les Métiers | Secours de France RP - Fan Site">
+    <meta property="og:description" content="Tous les métiers d'urgence à incarner dans Secours de France RP.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://secours2france-fan.fr/metiers.html">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1555864326-5cf22ef123cf?auto=format&fit=crop&w=1200&q=80">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%231717C9'/><text y='50%' x='50%' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='sans-serif' font-size='40'>SF</text></svg>">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Styles additionnels propres à la page Métiers (n'écrase rien de style.css) -->
+    <style>
+        .metiers-hero {
+            padding: 7rem 0 3rem;
+            text-align: center;
+        }
+        .metiers-hero h1 {
+            font-family: 'Poppins', sans-serif;
+        }
+        .metiers-hero p {
+            max-width: 640px;
+            margin: 1rem auto 0;
+            opacity: .85;
+        }
+        .metiers-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .6rem;
+            justify-content: center;
+            margin: 2rem 0 2.5rem;
+        }
+        .filter-chip {
+            border: 1px solid rgba(255,255,255,.15);
+            background: rgba(255,255,255,.04);
+            color: inherit;
+            padding: .5rem 1.1rem;
+            border-radius: 999px;
+            font-size: .85rem;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+        .filter-chip:hover { border-color: rgba(255,255,255,.4); }
+        .filter-chip.active {
+            background: #1717C9;
+            border-color: #1717C9;
+            color: #fff;
+        }
+        .metiers-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .metier-card {
+            padding: 1.75rem;
+            display: grid;
+            grid-template-columns: 64px 1fr;
+            gap: 1.25rem;
+            align-items: start;
+        }
+        .metier-card .metier-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            background: rgba(23,23,201,.15);
+            color: #4d5dff;
+            flex-shrink: 0;
+        }
+        .metier-card.cat-secours .metier-icon { background: rgba(220,53,69,.15); color: #ff5c6c; }
+        .metier-card.cat-ordre .metier-icon { background: rgba(23,23,201,.15); color: #4d5dff; }
+        .metier-card.cat-justice .metier-icon { background: rgba(148,87,235,.15); color: #b18aff; }
+        .metier-card.cat-service .metier-icon { background: rgba(255,193,7,.15); color: #ffcc4d; }
+        .metier-card.cat-civil .metier-icon { background: rgba(40,167,69,.15); color: #4ddb7a; }
+
+        .metier-top {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: .5rem;
+        }
+        .metier-top h3 { margin: 0; }
+        .metier-status {
+            font-size: .75rem;
+            padding: .25rem .7rem;
+            border-radius: 999px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .status-open { background: rgba(40,167,69,.18); color: #4ddb7a; }
+        .status-closed { background: rgba(220,53,69,.18); color: #ff5c6c; }
+        .status-soon { background: rgba(255,193,7,.18); color: #ffcc4d; }
+
+        .metier-desc { margin: .6rem 0 1rem; opacity: .85; line-height: 1.55; }
+
+        .metier-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin-top: .5rem;
+        }
+        .metier-details h4 {
+            font-size: .8rem;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            opacity: .6;
+            margin: 0 0 .5rem;
+        }
+        .metier-details ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: .4rem;
+            font-size: .92rem;
+        }
+        .metier-details ul li {
+            display: flex;
+            align-items: flex-start;
+            gap: .5rem;
+        }
+        .metier-details ul li i {
+            margin-top: .2rem;
+            opacity: .6;
+            font-size: .8rem;
+        }
+        .grade-chain {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .4rem;
+        }
+        .grade-chip {
+            font-size: .78rem;
+            padding: .3rem .65rem;
+            border-radius: 8px;
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.08);
+        }
+
+        .metiers-note {
+            margin-top: 3rem;
+            padding: 1.5rem;
+            font-size: .9rem;
+            opacity: .8;
+            line-height: 1.6;
+        }
+        @media (max-width: 560px) {
+            .metier-card { grid-template-columns: 1fr; }
+            .metier-icon { margin-bottom: .5rem; }
+        }
+
+        /* ---- Hero avec particules (comme l'accueil) ---- */
+        .metiers-hero { position: relative; overflow: hidden; }
+        .metiers-hero canvas#metiers-particles {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .metiers-hero .hero-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: .35;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .metiers-hero .glow-1 {
+            width: 380px; height: 380px;
+            background: #1717C9;
+            top: -140px; left: -80px;
+        }
+        .metiers-hero .glow-2 {
+            width: 320px; height: 320px;
+            background: #ff5c6c;
+            bottom: -160px; right: -60px;
+        }
+        .metiers-hero > * { position: relative; z-index: 1; }
+
+        /* ---- Stagger + hover sur les cartes métiers ---- */
+        .metier-card {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .6s ease, transform .6s ease, box-shadow .3s ease, border-color .3s ease;
+        }
+        .metier-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .metier-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,.25);
+        }
+        .metier-icon { transition: transform .3s ease; }
+        .metier-card:hover .metier-icon { transform: scale(1.08) rotate(-3deg); }
+
+        /* ---- Statuts : petite pulsation quand ouvert ---- */
+        .metier-status { position: relative; display: inline-flex; align-items: center; gap: .4rem; }
+        .metier-status::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+        .status-open::before { animation: pulseDot 1.6s ease-in-out infinite; }
+        @keyframes pulseDot {
+            0%, 100% { box-shadow: 0 0 0 0 currentColor; opacity: 1; }
+            70% { box-shadow: 0 0 0 6px transparent; opacity: .5; }
+        }
+        .metier-status.status-updating { opacity: .5; }
+
+        /* ---- Filtres : transition douce au clic ---- */
+        .filter-chip { transform: scale(1); transition: all .2s ease, transform .15s ease; }
+        .filter-chip:active { transform: scale(.95); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .metier-card, .status-open::before { transition: none; animation: none; opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Search Modal -->
+    <div id="search-modal" class="modal" aria-hidden="true">
+        <div class="modal-overlay" onclick="closeSearch()"></div>
+        <div class="modal-content glass-panel">
+            <div class="search-header">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search-input" placeholder="Rechercher (métiers, véhicules, guides...)" aria-label="Recherche">
+                <button class="close-btn" onclick="closeSearch()" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <ul id="search-results" class="search-results"></ul>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Secours de France RP</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="index.html#hero">Accueil</a>
+                <a href="index.html#jeu">Le jeu</a>
+                <a href="metiers.html" class="active-link">Métiers</a>
+                <a href="index.html#vehicules">Véhicules</a>
+                <a href="index.html#evenements">Événements</a>
+                <a href="index.html#galerie">Galerie</a>
+                <a href="guides.html">Guides</a>
+                <button class="search-trigger" onclick="openSearch()" aria-label="Rechercher"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <a href="https://discord.gg/s2f" target="_blank" rel="noopener noreferrer" class="btn btn-discord">
+                    <i class="fa-brands fa-discord"></i> Discord
+                </a>
+            </div>
+
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-menu">
+        <div class="mobile-links">
+            <a href="index.html#hero">Accueil</a>
+            <a href="index.html#jeu">Le jeu</a>
+            <a href="metiers.html">Métiers</a>
+            <a href="index.html#vehicules">Véhicules</a>
+            <a href="index.html#evenements">Événements</a>
+            <a href="index.html#galerie">Galerie</a>
+            <a href="guides.html">Guides</a>
+            <a href="https://discord.gg/s2f" target="_blank" rel="noopener noreferrer" class="btn btn-discord w-full"><i class="fa-brands fa-discord"></i> Rejoindre le Discord</a>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero -->
+        <header class="metiers-hero container reveal">
+            <canvas id="metiers-particles"></canvas>
+            <div class="hero-glow glow-1"></div>
+            <div class="hero-glow glow-2"></div>
+            <span class="badge">PROJET FAN NON OFFICIEL</span>
+            <h1 class="text-gradient">LES MÉTIERS</h1>
+            <p>Secours de France RP propose une large palette de métiers d'urgence et de service public à incarner : forces de l'ordre, secours, services routiers, transport... ou simple vie civile. Découvre chaque rôle, ses missions et ses conditions d'accès.</p>
+        </header>
+
+        <!-- Filtres -->
+        <section class="container reveal">
+            <div class="metiers-filters" id="metiers-filters">
+                <button class="filter-chip active" data-filter="all">Tous</button>
+                <button class="filter-chip" data-filter="ordre">Forces de l'ordre</button>
+                <button class="filter-chip" data-filter="justice">Justice & Intérieur</button>
+                <button class="filter-chip" data-filter="secours">Secours</button>
+                <button class="filter-chip" data-filter="service">Services publics</button>
+                <button class="filter-chip" data-filter="civil">Vie civile</button>
+            </div>
+        </section>
+
+        <!-- Liste des métiers -->
+        <section class="container section-padding reveal">
+            <div class="metiers-list" id="metiers-list">
+
+                <!-- Police Nationale -->
+                <article class="metier-card cat-ordre glass-panel" data-cat="ordre">
+                    <div class="metier-icon"><i class="fa-solid fa-building-shield"></i></div>
+                    <div>
+                        <div class="metier-top">
+                            <h3>Police Nationale</h3>
+                            <span class="metier-status status-open" data-job="police-nationale">Recrutement ouvert</span>
+                        </div>
+                        <p class="metier-desc">Patrouille dans les rues, contrôle d'identité, gestion du trafic et interpellations. La Police Nationale est l'un des piliers du maintien de l'ordre en ville, en binôme ou en équipe, au volant des véhicules sérigraphiés du corps.</p>
+                        <div class="metier-details">
+                            <div>
+                                <h4>Missions</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-check"></i> Patrouilles et contrôles routiers</li>
+                                    <li><i class="fa-solid fa-check"></i> Interventions sur braquages et infractions</li>
+                                    <li><i class="fa-solid fa-check"></i> Interpellation et mise en cellule</li>
+                                    <li><i class="fa-solid fa-check"></i> Sécurisation d'événements RP</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Conditions</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-circle-info"></i> Casier RP vierge recommandé</li>
+                                    <li><i class="fa-solid fa-circle-info"></i> Micro fonctionnel conseillé</li>
+                                    <li><i class="fa-solid fa-circle-info"></i> Respect strict des règles de RP</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Grades (exemples)</h4>
+                                <div class="grade-chain">
+                                    <span class="grade-chip">Gardien de la paix</span>
+                                    <span class="grade-chip">Brigadier</span>
+                                    <span class="grade-chip">Brigadier-chef</span>
+                                    <span class="grade-chip">Officier</span>
+                                    <span class="grade-chip">Commissaire</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Gendarmerie Nationale -->
+                <article class="metier-card cat-ordre glass-panel" data-cat="ordre">
+                    <div class="metier-icon"><i class="fa-solid fa-star-of-life"></i></div>
+                    <div>
+                        <div class="metier-top">
+                            <h3>Gendarmerie Nationale</h3>
+                            <span class="metier-status status-open" data-job="gendarmerie">Recrutement ouvert</span>
+                        </div>
+                        <p class="metier-desc">Corps militaire chargé de la sécurité, souvent présent en périphérie de la carte et sur les axes routiers. Missions proches de la Police Nationale, avec une identité et des véhicules qui lui sont propres.</p>
+                        <div class="metier-details">
+                            <div>
+                                <h4>Missions</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-check"></i> Surveillance des axes routiers</li>
+                                    <li><i class="fa-solid fa-check"></i> Interventions et contrôles</li>
+                                    <li><i class="fa-solid fa-check"></i> Appui aux autres forces de l'ordre</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Conditions</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-circle-info"></i> Sérieux et discipline en RP</li>
+                                    <li><i class="fa-solid fa-circle-info"></i> Formation interne requise</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Grades (exemples)</h4>
+                                <div class="grade-chain">
+                                    <span class="grade-chip">Gendarme adjoint</span>
+                                    <span class="grade-chip">Gendarme</span>
+                                    <span class="grade-chip">Maréchal des logis</span>
+                                    <span class="grade-chip">Officier</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- DOCP -->
+                <article class="metier-card cat-justice glass-panel" data-cat="justice">
+                    <div class="metier-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                    <div>
+                        <div class="metier-top">
+                            <h3>DOCP</h3>
+                            <span class="metier-status status-closed" data-job="docp">Recrutement fermé</span>
+                        </div>
+                        <p class="metier-desc">Unité rattachée à la sécurité intérieure, chargée du maintien de l'ordre public et d'opérations sensibles comme les escortes de fonds ou de personnalités. Un métier exigeant, réservé aux joueurs déjà expérimentés dans les autres forces de l'ordre.</p>
+                        <div class="metier-details">
+                            <div>
+                                <h4>Missions</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-check"></i> Escortes de fonds et de personnalités</li>
+                                    <li><i class="fa-solid fa-check"></i> Maintien de l'ordre public</li>
+                                    <li><i class="fa-solid fa-check"></i> Appui aux autres forces en opérations sensibles</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Conditions</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-circle-info"></i> Expérience préalable en Police ou Gendarmerie généralement demandée</li>
+                                    <li><i class="fa-solid fa-circle-info"></i> Sérieux et discrétion en RP</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Grades (exemples)</h4>
+                                <div class="grade-chain">
+                                    <span class="grade-chip">Agent DOCP</span>
+                                    <span class="grade-chip">Agent confirmé</span>
+                                    <span class="grade-chip">Chef d'unité</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- IF1 -->
+                <article class="metier-card cat-justice glass-panel" data-cat="justice">
+                    <div class="metier-icon"><i class="fa-solid fa-tower-broadcast"></i></div>
+                    <div>
+                        <div class="metier-top">
+                            <h3>IF1</h3>
+                            <span class="metier-status status-soon" data-job="if1">Recrutement à venir</span>
+                        </div>
+                        <p class="metier-desc">Service lié à la coordination des appels de secours et des opérations liées à la justice et à la sécurité intérieure. Centralise et redistribue les interventions entre les différents métiers d'urgence.</p>
+                        <div class="metier-details">
+                            <div>
+                                <h4>Missions</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-check"></i> Réception et répartition des appels de secours</li>
+                                    <li><i class="fa-solid fa-check"></i> Coordination entre les différents métiers</li>
+                                    <li><i class="fa-solid fa-check"></i> Suivi des opérations en lien avec la justice</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Conditions</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-circle-info"></i> Bonne connaissance des différents métiers du jeu</li>
+                                    <li><i class="fa-solid fa-circle-info"></i> Rigueur et calme en situation d'urgence</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p style="font-size:.8rem; opacity:.6; margin-top:.75rem;"><i class="fa-solid fa-triangle-exclamation"></i> Détails à confirmer côté staff : peu d'informations publiques précises sur ce service au moment de la rédaction.</p>
+                    </div>
+                </article>
+
+                <!-- Sapeurs-Pompiers -->
+                <article class="metier-card cat-secours glass-panel" data-cat="secours">
+                    <div class="metier-icon"><i class="fa-solid fa-fire-extinguisher"></i></div>
+                    <div>
+                        <div class="metier-top">
+                            <h3>Sapeurs-Pompiers</h3>
+                            <span class="metier-status status-closed" data-job="pompiers">Recrutement fermé</span>
+                        </div>
+                        <p class="metier-desc">Extinction d'incendies, désincarcération et missions de sauvetage à haut risque. Un métier d'équipe qui demande coordination et sang-froid, au cœur des scènes RP les plus intenses.</p>
+                        <div class="metier-details">
+                            <div>
+                                <h4>Missions</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-check"></i> Extinction d'incendies</li>
+                                    <li><i class="fa-solid fa-check"></i> Désincarcération après accident</li>
+                                    <li><i class="fa-solid fa-check"></i> Sauvetage en hauteur ou en milieu périlleux</li>
+                                    <li><i class="fa-solid fa-check"></i> Appui aux équipes du SAMU</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Conditions</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-circle-info"></i> Esprit d'équipe indispensable</li>
+                                    <li><i class="fa-solid fa-circle-info"></i> Disponibilité pour formations internes</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Grades (exemples)</h4>
+                                <div class="grade-chain">
+                                    <span class="grade-chip">Sapeur</span>
+                                    <span class="grade-chip">Caporal</span>
+                                    <span class="grade-chip">Sergent</span>
+                                    <span class="grade-chip">Lieutenant</span>
+                                    <span class="grade-chip">Capitaine</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- SAMU / Ambulanciers -->
+                <article class="metier-card cat-secours glass-panel" data-cat="secours">
+                    <div class="metier-icon"><i class="fa-solid fa-truck-medical"></i></div>
+                    <div>
+                        <div class="metier-top">
+                            <h3>SAMU / Ambulanciers</h3>
+                            <span class="metier-status status-soon" data-job="samu">Recrutement à venir</span>
+                        </div>
+                        <p class="metier-desc">Premiers secours, prise en charge des blessés et transport vers l'hôpital. Un rôle central lors des accidents et interventions, en coordination avec la police et les pompiers.</p>
+                        <div class="metier-details">
+                            <div>
+                                <h4>Missions</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-check"></i> Premiers secours sur intervention</li>
+                                    <li><i class="fa-solid fa-check"></i> Transport et prise en charge médicale</li>
+                                    <li><i class="fa-solid fa-check"></i> Coordination avec police et pompiers</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Conditions</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-circle-info"></i> Réactivité et calme sous pression</li>
+                                    <li><i class="fa-solid fa-circle-info"></i> Formation médicale RP à suivre</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Grades (exemples)</h4>
+                                <div class="grade-chain">
+                                    <span class="grade-chip">Ambulancier</span>
+                                    <span class="grade-chip">Infirmier</span>
+                                    <span class="grade-chip">Médecin régulateur</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Services routiers / RTCF -->
+                <article class="metier-card cat-service glass-panel" data-cat="service">
+                    <div class="metier-icon"><i class="fa-solid fa-road-barrier"></i></div>
+                    <div>
+                        <div class="metier-top">
+                            <h3>Services Routiers (RTCF)</h3>
+                            <span class="metier-status status-closed" data-job="rtcf">Recrutement fermé</span>
+                        </div>
+                        <p class="metier-desc">Sécurisation des voies, balisage des accidents et gestion du trafic sur les grands axes. Un métier de terrain indispensable à la fluidité et à la sécurité de la circulation.</p>
+                        <div class="metier-details">
+                            <div>
+                                <h4>Missions</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-check"></i> Balisage et sécurisation d'accidents</li>
+                                    <li><i class="fa-solid fa-check"></i> Gestion du trafic et dépannage</li>
+                                    <li><i class="fa-solid fa-check"></i> Entretien des voies rapides</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Conditions</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-circle-info"></i> Connaissance du code de la route RP</li>
+                                    <li><i class="fa-solid fa-circle-info"></i> Rigueur sur le terrain</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Grades (exemples)</h4>
+                                <div class="grade-chain">
+                                    <span class="grade-chip">Agent RTCF</span>
+                                    <span class="grade-chip">Agent confirmé</span>
+                                    <span class="grade-chip">Chef d'équipe</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- RATP / Chauffeur de bus -->
+                <article class="metier-card cat-service glass-panel" data-cat="service">
+                    <div class="metier-icon"><i class="fa-solid fa-bus"></i></div>
+                    <div>
+                        <div class="metier-top">
+                            <h3>RATP / Chauffeur de bus</h3>
+                            <span class="metier-status status-open" data-job="ratp">Recrutement ouvert</span>
+                        </div>
+                        <p class="metier-desc">Assure le transport des citoyens sur la carte via les lignes de bus. Un métier calme, idéal pour découvrir le jeu, rencontrer la communauté et animer la vie civile.</p>
+                        <div class="metier-details">
+                            <div>
+                                <h4>Missions</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-check"></i> Transport des joueurs sur les lignes de bus</li>
+                                    <li><i class="fa-solid fa-check"></i> Respect des arrêts et horaires RP</li>
+                                    <li><i class="fa-solid fa-check"></i> Animation de la vie civile</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Conditions</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-circle-info"></i> Accessible aux nouveaux joueurs</li>
+                                    <li><i class="fa-solid fa-circle-info"></i> Ponctualité et politesse en RP</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Grades (exemples)</h4>
+                                <div class="grade-chain">
+                                    <span class="grade-chip">Chauffeur</span>
+                                    <span class="grade-chip">Chauffeur confirmé</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Citoyen -->
+                <article class="metier-card cat-civil glass-panel" data-cat="civil">
+                    <div class="metier-icon"><i class="fa-solid fa-user"></i></div>
+                    <div>
+                        <div class="metier-top">
+                            <h3>Citoyen</h3>
+                            <span class="metier-status status-open" data-job="citoyen">Toujours accessible</span>
+                        </div>
+                        <p class="metier-desc">Pas besoin de recrutement : incarne un habitant de la ville, travaille, fais tes courses, roule en ville ou lance-toi dans le roleplay de vie civile. Le point de départ idéal pour tous les nouveaux joueurs.</p>
+                        <div class="metier-details">
+                            <div>
+                                <h4>Activités</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-check"></i> Achat et personnalisation de véhicules</li>
+                                    <li><i class="fa-solid fa-check"></i> Emplois civils (boulangerie, boîte de nuit...)</li>
+                                    <li><i class="fa-solid fa-check"></i> Scènes RP libres avec la communauté</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Conditions</h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-circle-info"></i> Aucune, accès libre dès la connexion</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <p class="metiers-note glass-panel">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                Les métiers, grades et statuts de recrutement présentés ici sont donnés à titre indicatif et peuvent évoluer selon les mises à jour du jeu. Pour connaître les conditions d'accès exactes et les places disponibles, consulte le Discord officiel ou la page de recrutement en jeu. Ce site est un projet fan non officiel, non affilié à Secours de France Studio.
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="nav-logo">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Secours de France RP</span>
+                </div>
+                <p class="text-muted mt-2">Le portail fan communautaire francophone dédié à l'univers du jeu.</p>
+                <div class="footer-disclaimer mt-4">
+                    <strong>Projet fan non officiel</strong> — Ce site n'est pas affilié à, sponsorisé par, ou approuvé par Secours de France Studio ou Roblox Corporation.
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <a href="index.html#hero">Accueil</a>
+                <a href="index.html#jeu">Le jeu</a>
+                <a href="metiers.html">Métiers</a>
+                <a href="guides.html">Guides</a>
+            </div>
+            <div class="footer-links">
+                <h4>Réseaux</h4>
+                <a href="https://discord.gg/s2f">Discord</a>
+                <a href="https://www.roblox.com">Roblox</a>
+                <a href="#">YouTube</a>
+                <a href="#">TikTok</a>
+            </div>
+            <div class="footer-links">
+                <h4>Légal</h4>
+                <a href="#">Mentions légales</a>
+                <a href="#">Politique de confidentialité</a>
+                <a href="#">À propos du Fan Site</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Secours de France Fan Site. Fait avec passion par la communauté.</p>
+        </div>
+    </footer>
+
+    <script>
+        /* ==============================
+           1. MENU MOBILE & NAVBAR
+           ============================== */
+        const navbar = document.getElementById('navbar');
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-links a');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            mobileBtn.querySelector('i').classList.toggle('fa-bars');
+            mobileBtn.querySelector('i').classList.toggle('fa-xmark');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                mobileBtn.querySelector('i').classList.remove('fa-xmark');
+                mobileBtn.querySelector('i').classList.add('fa-bars');
+            });
+        });
+
+        /* ==============================
+           2. ANIMATIONS AU SCROLL
+           ============================== */
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        /* ==============================
+           3. PARTICULES DU HERO (comme l'accueil)
+           ============================== */
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!prefersReducedMotion) {
+            const mCanvas = document.getElementById('metiers-particles');
+            const mCtx = mCanvas.getContext('2d');
+            let mParticles = [];
+
+            function resizeMetiersCanvas() {
+                const rect = mCanvas.parentElement.getBoundingClientRect();
+                mCanvas.width = rect.width;
+                mCanvas.height = rect.height;
+            }
+            window.addEventListener('resize', resizeMetiersCanvas);
+            resizeMetiersCanvas();
+
+            class MParticle {
+                constructor() {
+                    this.x = Math.random() * mCanvas.width;
+                    this.y = Math.random() * mCanvas.height;
+                    this.size = Math.random() * 2;
+                    this.speedX = Math.random() * 0.4 - 0.2;
+                    this.speedY = Math.random() * 0.4 - 0.2;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x > mCanvas.width) this.x = 0;
+                    else if (this.x < 0) this.x = mCanvas.width;
+                    if (this.y > mCanvas.height) this.y = 0;
+                    else if (this.y < 0) this.y = mCanvas.height;
+                }
+                draw() {
+                    mCtx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                    mCtx.beginPath();
+                    mCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    mCtx.fill();
+                }
+            }
+
+            for (let i = 0; i < 30; i++) mParticles.push(new MParticle());
+
+            function animateMetiersParticles() {
+                mCtx.clearRect(0, 0, mCanvas.width, mCanvas.height);
+                mParticles.forEach(p => { p.update(); p.draw(); });
+                requestAnimationFrame(animateMetiersParticles);
+            }
+            animateMetiersParticles();
+        }
+
+        /* ==============================
+           4. FILTRES MÉTIERS (avec stagger d'apparition)
+           ============================== */
+        const filterChips = document.querySelectorAll('.filter-chip');
+        const metierCards = document.querySelectorAll('.metier-card');
+
+        // Apparition en cascade au chargement, une seule fois
+        const cardObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const visibleCards = Array.from(metierCards).filter(c => c.style.display !== 'none');
+                    const idx = visibleCards.indexOf(entry.target);
+                    entry.target.style.transitionDelay = `${Math.max(idx, 0) * 80}ms`;
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        metierCards.forEach(card => cardObserver.observe(card));
+
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                filterChips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                const filter = chip.dataset.filter;
+                let visibleIndex = 0;
+
+                metierCards.forEach(card => {
+                    const matches = filter === 'all' || card.dataset.cat === filter;
+                    if (matches) {
+                        card.style.display = '';
+                        // ré-anime la carte en cascade à chaque changement de filtre
+                        card.classList.remove('active');
+                        card.style.transitionDelay = `${visibleIndex * 60}ms`;
+                        // force reflow pour relancer la transition CSS
+                        void card.offsetWidth;
+                        card.classList.add('active');
+                        visibleIndex++;
+                    } else {
+                        card.style.display = 'none';
+                        card.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        /* ==============================
+           5. STATUTS DE RECRUTEMENT (fichier JSON GitHub)
+           ============================== */
+        const RECRUITMENT_JSON_URL = "https://raw.githubusercontent.com/spideyaxel/sf/refs/heads/main/recrutements.json";
+
+        const STATUS_LABELS = {
+            open: "Recrutement ouvert",
+            closed: "Recrutement fermé",
+            soon: "Recrutement à venir"
+        };
+
+        async function fetchRecruitmentStatus() {
+            const statusEls = document.querySelectorAll('.metier-status[data-job]');
+            if (!RECRUITMENT_JSON_URL || RECRUITMENT_JSON_URL.includes('TON-PSEUDO')) {
+                // Pas encore configuré : on garde les statuts écrits en dur dans le HTML
+                return;
+            }
+
+            statusEls.forEach(el => el.classList.add('status-updating'));
+
+            try {
+                const res = await fetch(RECRUITMENT_JSON_URL, { cache: 'no-store' });
+                if (!res.ok) throw new Error('Réponse JSON invalide');
+                const data = await res.json();
+                const metiers = data && data.metiers ? data.metiers : null;
+                if (!metiers) throw new Error('Structure JSON inattendue');
+
+                statusEls.forEach(el => {
+                    const jobId = el.dataset.job;
+                    const jobData = metiers[jobId];
+                    if (!jobData || !jobData.statut) return; // on laisse le statut par défaut si absent
+
+                    const statut = jobData.statut;
+                    el.classList.remove('status-open', 'status-closed', 'status-soon');
+                    if (STATUS_LABELS[statut]) {
+                        el.classList.add(`status-${statut}`);
+                        el.textContent = jobData.label || STATUS_LABELS[statut];
+                    }
+                });
+            } catch (err) {
+                console.error('Impossible de charger les statuts de recrutement, affichage des valeurs par défaut :', err);
+            } finally {
+                statusEls.forEach(el => el.classList.remove('status-updating'));
+            }
+        }
+
+        fetchRecruitmentStatus();
+
+        /* ==============================
+           6. RECHERCHE GLOBALE
+           ============================== */
+        const searchModal = document.getElementById('search-modal');
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+
+        const searchData = [
+            { title: "Police Nationale (Métier)", url: "metiers.html" },
+            { title: "Gendarmerie Nationale (Métier)", url: "metiers.html" },
+            { title: "DOCP (Métier)", url: "metiers.html" },
+            { title: "IF1 (Métier)", url: "metiers.html" },
+            { title: "Sapeurs-Pompiers (Métier)", url: "metiers.html" },
+            { title: "SAMU / Ambulanciers (Métier)", url: "metiers.html" },
+            { title: "Services Routiers RTCF (Métier)", url: "metiers.html" },
+            { title: "RATP / Chauffeur de bus (Métier)", url: "metiers.html" },
+            { title: "Citoyen (Métier)", url: "metiers.html" },
+            { title: "Règles du RP (Guide)", url: "guides.html#regles" },
+            { title: "Codes Radio (Guide)", url: "guides.html#radio" }
+        ];
+
+        function openSearch() {
+            searchModal.classList.add('active');
+            searchModal.setAttribute('aria-hidden', 'false');
+            searchInput.focus();
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSearch() {
+            searchModal.classList.remove('active');
+            searchModal.setAttribute('aria-hidden', 'true');
+            searchInput.value = '';
+            searchResults.innerHTML = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            searchResults.innerHTML = '';
+            if (query.length < 2) return;
+
+            const results = searchData.filter(item => item.title.toLowerCase().includes(query));
+            if (results.length === 0) {
+                searchResults.innerHTML = '<li class="no-result">Aucun résultat trouvé.</li>';
+                return;
+            }
+            results.forEach(res => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="${res.url}" onclick="closeSearch()">${res.title}</a>`;
+                searchResults.appendChild(li);
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeSearch();
+        });
+    </script>
+</body>
+</html>
