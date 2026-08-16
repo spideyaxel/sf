@@ -12,6 +12,14 @@
     "pompiers": {
       "nom": "Sapeurs-Pompiers",
       "statut": "open"
+},
+    "docp": {
+      "nom": "DOCP",
+      "statut": "closed"
+    },
+    "if1": {
+      "nom": "IF1",
+      "statut": "soon"
     },
     "samu": {
       "nom": "SAMU / Ambulanciers",
