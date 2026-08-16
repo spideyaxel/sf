@@ -1,0 +1,33 @@
+{
+  "lastUpdate": "2026-08-16",
+  "metiers": {
+    "police-nationale": {
+      "nom": "Police Nationale",
+      "statut": "open"
+    },
+    "gendarmerie": {
+      "nom": "Gendarmerie Nationale",
+      "statut": "open"
+    },
+    "pompiers": {
+      "nom": "Sapeurs-Pompiers",
+      "statut": "closed"
+    },
+    "samu": {
+      "nom": "SAMU / Ambulanciers",
+      "statut": "soon"
+    },
+    "rtcf": {
+      "nom": "Services Routiers (RTCF)",
+      "statut": "closed"
+    },
+    "ratp": {
+      "nom": "RATP / Chauffeur de bus",
+      "statut": "open"
+    },
+    "citoyen": {
+      "nom": "Citoyen",
+      "statut": "open"
+    }
+  }
+}
