@@ -1,0 +1,2275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Découvrez Secours de France RP, une expérience roleplay française sur Roblox. Choisissez votre métier, intervenez, conduisez et vivez vos propres scénarios.">
+
+    <title>Le jeu — Secours de France RP</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =====================================================
+           PAGE JEU
+        ===================================================== */
+
+        .game-hero {
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding: 120px 0 80px;
+        }
+
+        .game-hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -3;
+        }
+
+        .game-hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: saturate(1.1);
+            transform: scale(1.04);
+        }
+
+        .game-hero-bg::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(4, 4, 15, .98) 0%,
+                    rgba(4, 4, 15, .88) 35%,
+                    rgba(4, 4, 15, .48) 70%,
+                    rgba(4, 4, 15, .82) 100%
+                ),
+                linear-gradient(
+                    0deg,
+                    #05050d 0%,
+                    transparent 45%,
+                    rgba(5,5,13,.3) 100%
+                );
+        }
+
+        .game-hero-content {
+            max-width: 850px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .game-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 10px 16px;
+
+            border-radius: 999px;
+
+            background: rgba(255,255,255,.07);
+            border: 1px solid rgba(255,255,255,.12);
+
+            color: #dfe4ff;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            letter-spacing: .12em;
+            text-transform: uppercase;
+
+            backdrop-filter: blur(15px);
+
+            margin-bottom: 25px;
+        }
+
+        .game-badge i {
+            color: #ff2638;
+        }
+
+        .game-hero h1 {
+            font-family: "Poppins", sans-serif;
+
+            font-size: clamp(48px, 8vw, 105px);
+
+            line-height: .92;
+
+            margin: 0 0 28px;
+
+            font-weight: 800;
+
+            letter-spacing: -4px;
+        }
+
+        .game-hero h1 span {
+            display: block;
+
+            background:
+                linear-gradient(
+                    110deg,
+                    #ffffff,
+                    #aebaff,
+                    #7186ff
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .game-hero-description {
+            max-width: 720px;
+
+            color: #c6c8d8;
+
+            font-size: 18px;
+
+            line-height: 1.8;
+
+            margin-bottom: 32px;
+        }
+
+        .game-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .game-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            padding: 15px 23px;
+
+            border-radius: 13px;
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease,
+                background .25s ease;
+        }
+
+        .game-action:hover {
+            transform: translateY(-3px);
+        }
+
+        .game-action-primary {
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #172cff,
+                    #3049ff
+                );
+
+            box-shadow:
+                0 15px 45px rgba(30,50,255,.28);
+        }
+
+        .game-action-primary:hover {
+            box-shadow:
+                0 20px 55px rgba(30,50,255,.45);
+        }
+
+        .game-action-discord {
+            color: white;
+
+            background: rgba(88,101,242,.15);
+
+            border: 1px solid rgba(88,101,242,.35);
+        }
+
+        .game-action-discord:hover {
+            background: rgba(88,101,242,.25);
+        }
+
+        .game-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+
+            margin-top: 25px;
+
+            color: #85899e;
+
+            font-size: 13px;
+        }
+
+        .game-meta span {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .game-meta i {
+            color: #7686ff;
+        }
+
+        /* =====================================================
+           STATS
+        ===================================================== */
+
+        .game-stats {
+            position: relative;
+
+            margin-top: -45px;
+
+            z-index: 5;
+        }
+
+        .game-stats-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+        }
+
+        .game-stat {
+            padding: 25px;
+
+            min-height: 130px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 17px;
+        }
+
+        .game-stat-icon {
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background:
+                rgba(35,65,255,.12);
+
+            border:
+                1px solid rgba(70,90,255,.2);
+
+            color: #8191ff;
+
+            font-size: 20px;
+        }
+
+        .game-stat-value {
+            font-family: "Poppins", sans-serif;
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+            color: white;
+        }
+
+        .game-stat-label {
+            margin-top: 3px;
+
+            color: #7d8194;
+
+            font-size: 13px;
+        }
+
+        /* =====================================================
+           INTRO
+        ===================================================== */
+
+        .game-section {
+            padding: 110px 0;
+        }
+
+        .game-section-header {
+            margin-bottom: 35px;
+        }
+
+        .game-kicker {
+            color: #7587ff;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            letter-spacing: .16em;
+
+            text-transform: uppercase;
+
+            margin-bottom: 10px;
+        }
+
+        .game-section-header h2 {
+            font-family: "Poppins", sans-serif;
+
+            font-size: clamp(30px, 5vw, 50px);
+
+            line-height: 1.1;
+
+            margin: 0;
+        }
+
+        .game-lead {
+            max-width: 850px;
+
+            color: #9296aa;
+
+            font-size: 17px;
+
+            line-height: 1.85;
+        }
+
+        /* =====================================================
+           FEATURES
+        ===================================================== */
+
+        .game-features {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 16px;
+        }
+
+        .game-feature {
+            padding: 28px;
+
+            min-height: 230px;
+
+            transition:
+                transform .3s ease,
+                border-color .3s ease;
+        }
+
+        .game-feature:hover {
+            transform: translateY(-7px);
+
+            border-color:
+                rgba(100,115,255,.3);
+        }
+
+        .game-feature-icon {
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background:
+                rgba(37,65,255,.12);
+
+            color: #8090ff;
+
+            margin-bottom: 22px;
+
+            font-size: 20px;
+        }
+
+        .game-feature h3 {
+            margin: 0 0 10px;
+
+            font-family: "Poppins", sans-serif;
+
+            font-size: 18px;
+        }
+
+        .game-feature p {
+            color: #7f8396;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            margin: 0;
+        }
+
+        /* =====================================================
+           METIERS
+        ===================================================== */
+
+        .roles-layout {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 20px;
+        }
+
+        .roles-panel {
+            padding: 35px;
+        }
+
+        .roles-list {
+            display: grid;
+
+            gap: 10px;
+
+            margin-top: 25px;
+        }
+
+        .role {
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 15px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,.025);
+
+            border:
+                1px solid rgba(255,255,255,.06);
+
+            transition: .25s ease;
+        }
+
+        .role:hover {
+            transform: translateX(5px);
+
+            background:
+                rgba(255,255,255,.045);
+        }
+
+        .role-icon {
+            width: 42px;
+            height: 42px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background:
+                rgba(35,60,255,.12);
+
+            color: #8190ff;
+        }
+
+        .role strong {
+            display: block;
+
+            font-size: 14px;
+        }
+
+        .role small {
+            display: block;
+
+            margin-top: 3px;
+
+            color: #74798c;
+
+            font-size: 12px;
+        }
+
+        .roles-image {
+            min-height: 500px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            border-radius: 20px;
+        }
+
+        .roles-image img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: transform .7s ease;
+        }
+
+        .roles-image:hover img {
+            transform: scale(1.04);
+        }
+
+        .roles-image::after {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    0deg,
+                    rgba(4,4,12,.9),
+                    transparent 55%
+                );
+        }
+
+        .roles-image-text {
+            position: absolute;
+
+            left: 25px;
+            right: 25px;
+            bottom: 25px;
+
+            z-index: 2;
+        }
+
+        .roles-image-text small {
+            color: #aeb4c9;
+
+            text-transform: uppercase;
+
+            letter-spacing: .1em;
+
+            font-size: 11px;
+        }
+
+        .roles-image-text h3 {
+            margin: 7px 0 0;
+
+            font-size: 25px;
+        }
+
+        /* =====================================================
+           GAMEPLAY
+        ===================================================== */
+
+        .gameplay-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+        }
+
+        .gameplay-card {
+            padding: 27px;
+
+            min-height: 190px;
+
+            position: relative;
+        }
+
+        .gameplay-number {
+            width: 35px;
+            height: 35px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: white;
+
+            color: #070712;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            margin-bottom: 20px;
+        }
+
+        .gameplay-card h3 {
+            font-family: "Poppins", sans-serif;
+
+            font-size: 17px;
+
+            margin: 0 0 8px;
+        }
+
+        .gameplay-card p {
+            margin: 0;
+
+            color: #7c8094;
+
+            line-height: 1.65;
+
+            font-size: 13px;
+        }
+
+        /* =====================================================
+           GALERIE
+        ===================================================== */
+
+        .game-gallery {
+            display: grid;
+
+            grid-template-columns:
+                1.25fr .75fr;
+
+            gap: 15px;
+        }
+
+        .gallery-main,
+        .gallery-small {
+            overflow: hidden;
+
+            border-radius: 18px;
+
+            border:
+                1px solid rgba(255,255,255,.08);
+        }
+
+        .gallery-main {
+            min-height: 530px;
+        }
+
+        .gallery-small {
+            min-height: 255px;
+        }
+
+        .gallery-column {
+            display: grid;
+
+            gap: 15px;
+        }
+
+        .game-gallery img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition:
+                transform .6s ease;
+        }
+
+        .game-gallery div:hover img {
+            transform: scale(1.045);
+        }
+
+        /* =====================================================
+           CTA
+        ===================================================== */
+
+        .game-cta {
+            padding: 55px;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr auto;
+
+            align-items: center;
+
+            gap: 30px;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .game-cta::before {
+            content: "";
+
+            position: absolute;
+
+            width: 350px;
+            height: 350px;
+
+            right: -120px;
+            top: -180px;
+
+            background:
+                rgba(35,65,255,.2);
+
+            filter: blur(80px);
+
+            border-radius: 50%;
+        }
+
+        .game-cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .game-cta h2 {
+            font-family: "Poppins", sans-serif;
+
+            font-size: clamp(28px, 5vw, 48px);
+
+            margin: 0 0 10px;
+        }
+
+        .game-cta p {
+            color: #888da1;
+
+            max-width: 700px;
+
+            line-height: 1.7;
+
+            margin: 0;
+        }
+
+        .game-cta-actions {
+            position: relative;
+            z-index: 2;
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+        .fan-note {
+            margin-top: 20px;
+
+            text-align: center;
+
+            color: #63687a;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+        }
+
+        .fan-note strong {
+            color: #9499aa;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1000px) {
+
+            .game-stats-grid,
+            .game-features,
+            .gameplay-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .roles-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .roles-image {
+                min-height: 400px;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .game-hero {
+                min-height: 760px;
+
+                padding-top: 100px;
+            }
+
+            .game-hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .game-hero-description {
+                font-size: 15px;
+            }
+
+            .game-stats {
+                margin-top: -20px;
+            }
+
+            .game-stats-grid,
+            .game-features,
+            .gameplay-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .game-section {
+                padding: 75px 0;
+            }
+
+            .game-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-main {
+                min-height: 350px;
+            }
+
+            .game-cta {
+                padding: 30px 25px;
+
+                grid-template-columns: 1fr;
+            }
+
+            .game-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .game-action {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav id="navbar">
+
+    <div class="nav-container">
+
+        <a href="index.html" class="nav-logo">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Secours de France RP</span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Accueil
+            </a>
+
+            <a href="jeu.html" class="active">
+                Le jeu
+            </a>
+
+            <a href="métiers.html">
+                Métiers
+            </a>
+
+            <a href="404.html">
+                Véhicules
+            </a>
+
+            <a href="404.html">
+                Événements
+            </a>
+
+            <a href="404.html">
+                Galerie
+            </a>
+
+            <a href="404.html">
+                Guides
+            </a>
+
+            <button
+                class="search-trigger"
+                onclick="openSearch()"
+                aria-label="Rechercher"
+            >
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+            <a
+                href="https://discord.gg/s2f"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-discord"
+            >
+                <i class="fa-brands fa-discord"></i>
+                Discord
+            </a>
+
+        </div>
+
+        <button
+            class="mobile-menu-btn"
+            aria-label="Ouvrir le menu"
+        >
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     MOBILE MENU
+===================================================== -->
+
+<div class="mobile-menu">
+
+    <div class="mobile-links">
+
+        <a href="index.html">
+            Accueil
+        </a>
+
+        <a href="jeu.html">
+            Le jeu
+        </a>
+
+        <a href="métiers.html">
+            Métiers
+        </a>
+
+        <a href="404.html">
+            Véhicules
+        </a>
+
+        <a href="404.html">
+            Événements
+        </a>
+
+        <a href="404.html">
+            Galerie
+        </a>
+
+        <a href="404.html">
+            Guides
+        </a>
+
+        <a
+            href="https://discord.gg/s2f"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-discord w-full"
+        >
+            <i class="fa-brands fa-discord"></i>
+            Rejoindre le Discord
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SEARCH
+===================================================== -->
+
+<div
+    id="search-modal"
+    class="modal"
+    aria-hidden="true"
+>
+
+    <div
+        class="modal-overlay"
+        onclick="closeSearch()"
+    ></div>
+
+    <div class="modal-content glass-panel">
+
+        <div class="search-header">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="search-input"
+                placeholder="Rechercher..."
+            >
+
+            <button
+                class="close-btn"
+                onclick="closeSearch()"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <ul
+            id="search-results"
+            class="search-results"
+        ></ul>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<header class="game-hero">
+
+    <div class="game-hero-bg">
+
+        <img
+            src="https://top-serveurs.net/upload/698b122f79104-96dfdb9d4ab895c6.png"
+            alt=""
+        >
+
+    </div>
+
+    <div class="container">
+
+        <div class="game-hero-content reveal">
+
+            <div class="game-badge">
+
+                <i class="fa-solid fa-siren-on"></i>
+
+                Roblox • Roleplay français
+
+            </div>
+
+
+            <h1>
+
+                PLUS QU'UN JEU.
+
+                <span>
+                    UNE INTERVENTION.
+                </span>
+
+            </h1>
+
+
+            <p class="game-hero-description">
+
+                Choisissez votre voie, prenez votre véhicule et
+                plongez dans l'univers de
+                <strong>Secours de France RP</strong>.
+
+                Police, gendarmerie, sapeurs-pompiers,
+                SAMU, services routiers ou simple citoyen :
+
+                <strong>
+                    chaque joueur peut créer sa propre histoire.
+                </strong>
+
+            </p>
+
+
+            <div class="game-actions">
+
+                <a
+                    href="https://www.roblox.com/fr/games/8392374718/Secours-de-France-RP"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="game-action game-action-primary"
+                >
+
+                    <i class="fa-solid fa-play"></i>
+
+                    JOUER SUR ROBLOX
+
+                </a>
+
+
+                <a
+                    href="https://discord.gg/s2f"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="game-action game-action-discord"
+                >
+
+                    <i class="fa-brands fa-discord"></i>
+
+                    REJOINDRE LE DISCORD
+
+                </a>
+
+            </div>
+
+
+            <div class="game-meta">
+
+                <span>
+                    <i class="fa-solid fa-calendar-days"></i>
+                    Depuis 2019
+                </span>
+
+                <span>
+                    <i class="fa-solid fa-gamepad"></i>
+                    Roblox
+                </span>
+
+                <span>
+                    <i class="fa-solid fa-users"></i>
+                    Multijoueur
+                </span>
+
+                <span>
+                    <i class="fa-solid fa-mobile-screen"></i>
+                    Multi-support
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+
+<section class="container game-stats reveal">
+
+    <div class="game-stats-grid">
+
+        <article class="game-stat glass-panel">
+
+            <div class="game-stat-icon">
+                <i class="fa-solid fa-users"></i>
+            </div>
+
+            <div>
+
+                <div
+                    class="game-stat-value"
+                    id="group-members"
+                >
+                    —
+                </div>
+
+                <div class="game-stat-label">
+                    Membres du groupe
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <article class="game-stat glass-panel">
+
+            <div class="game-stat-icon">
+                <i class="fa-solid fa-gamepad"></i>
+            </div>
+
+            <div>
+
+                <div
+                    class="game-stat-value"
+                    id="live-players"
+                >
+                    —
+                </div>
+
+                <div class="game-stat-label">
+                    Joueurs actuellement
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <article class="game-stat glass-panel">
+
+            <div class="game-stat-icon">
+                <i class="fa-solid fa-eye"></i>
+            </div>
+
+            <div>
+
+                <div
+                    class="game-stat-value"
+                    id="game-visits"
+                >
+                    —
+                </div>
+
+                <div class="game-stat-label">
+                    Visites Roblox
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <article class="game-stat glass-panel">
+
+            <div class="game-stat-icon">
+                <i class="fa-solid fa-star"></i>
+            </div>
+
+            <div>
+
+                <div
+                    class="game-stat-value"
+                    id="game-favorites"
+                >
+                    —
+                </div>
+
+                <div class="game-stat-label">
+                    Favoris
+                </div>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<main>
+
+
+<!-- =====================================================
+     PRESENTATION
+===================================================== -->
+
+<section class="container game-section reveal">
+
+    <div class="game-section-header">
+
+        <div class="game-kicker">
+            L'expérience
+        </div>
+
+        <h2>
+            Bienvenue dans Secours de France RP
+        </h2>
+
+    </div>
+
+
+    <p class="game-lead">
+
+        Secours de France RP est une expérience
+        roleplay française sur Roblox pensée autour
+        des services d'urgence, de la conduite,
+        de la coopération et surtout des interactions
+        entre joueurs.
+
+        <br><br>
+
+        Ici, il n'existe pas forcément de scénario
+        identique d'une session à l'autre.
+
+        Une patrouille tranquille peut rapidement
+        devenir une intervention importante,
+        un accident peut réunir plusieurs services
+        et une simple rencontre peut créer toute
+        une histoire.
+
+    </p>
+
+</section>
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section class="container game-section reveal">
+
+    <div class="game-section-header">
+
+        <div class="game-kicker">
+            Pourquoi jouer ?
+        </div>
+
+        <h2>
+            Une expérience faite pour créer des histoires
+        </h2>
+
+    </div>
+
+
+    <div class="game-features">
+
+
+        <article class="game-feature glass-panel">
+
+            <div class="game-feature-icon">
+                <i class="fa-solid fa-truck-medical"></i>
+            </div>
+
+            <h3>
+                Des interventions
+            </h3>
+
+            <p>
+                Accident, secours, incident ou
+                situation imprévue : chaque partie
+                peut prendre une direction différente.
+            </p>
+
+        </article>
+
+
+        <article class="game-feature glass-panel">
+
+            <div class="game-feature-icon">
+                <i class="fa-solid fa-car"></i>
+            </div>
+
+            <h3>
+                Des véhicules
+            </h3>
+
+            <p>
+                Prenez le volant et utilisez différents
+                types de véhicules adaptés aux métiers
+                et aux situations rencontrées.
+            </p>
+
+        </article>
+
+
+        <article class="game-feature glass-panel">
+
+            <div class="game-feature-icon">
+                <i class="fa-solid fa-people-group"></i>
+            </div>
+
+            <h3>
+                Du roleplay à plusieurs
+            </h3>
+
+            <p>
+                La communauté est au cœur de
+                l'expérience. Communiquez, coopérez
+                et construisez vos propres scènes.
+            </p>
+
+        </article>
+
+
+        <article class="game-feature glass-panel">
+
+            <div class="game-feature-icon">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+
+            <h3>
+                Un projet en évolution
+            </h3>
+
+            <p>
+                Secours de France RP continue
+                d'évoluer avec de nouveaux systèmes,
+                contenus et améliorations.
+            </p>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     METIERS
+===================================================== -->
+
+<section class="container game-section reveal">
+
+    <div class="roles-layout">
+
+
+        <div class="roles-panel glass-panel">
+
+            <div class="game-kicker">
+                Choisissez votre voie
+            </div>
+
+            <div class="game-section-header">
+
+                <h2>
+                    Quel sera votre rôle ?
+                </h2>
+
+            </div>
+
+
+            <div class="roles-list">
+
+
+                <div class="role">
+
+                    <div class="role-icon">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Police nationale
+                        </strong>
+
+                        <small>
+                            Patrouilles, contrôles et interventions.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="role">
+
+                    <div class="role-icon">
+                        <i class="fa-solid fa-building-shield"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Gendarmerie
+                        </strong>
+
+                        <small>
+                            Présence territoriale et opérations.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="role">
+
+                    <div class="role-icon">
+                        <i class="fa-solid fa-fire-extinguisher"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Sapeurs-pompiers
+                        </strong>
+
+                        <small>
+                            Secours, incendies et assistance.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="role">
+
+                    <div class="role-icon">
+                        <i class="fa-solid fa-truck-medical"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            SAMU / Ambulanciers
+                        </strong>
+
+                        <small>
+                            Secours et prise en charge des victimes.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="role">
+
+                    <div class="role-icon">
+                        <i class="fa-solid fa-road"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Services routiers
+                        </strong>
+
+                        <small>
+                            Sécurisation et interventions sur voirie.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="role">
+
+                    <div class="role-icon">
+                        <i class="fa-solid fa-bus"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Vie civile
+                        </strong>
+
+                        <small>
+                            Citoyen, transporteur ou conducteur.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <a
+                href="métiers.html"
+                class="btn btn-outline"
+                style="margin-top:25px;"
+            >
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+                Découvrir les métiers
+
+            </a>
+
+        </div>
+
+
+        <div class="roles-image glass-panel">
+
+            <img
+                src="https://top-serveurs.net/upload/6561c4aecb3a4-Snapshot_4.PNG"
+                alt="Véhicule de secours dans Secours de France RP"
+                loading="lazy"
+            >
+
+            <div class="roles-image-text">
+
+                <small>
+                    Immersion & coopération
+                </small>
+
+                <h3>
+                    Chaque appel devient une scène.
+                </h3>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     GAMEPLAY
+===================================================== -->
+
+<section class="container game-section reveal">
+
+    <div class="game-section-header">
+
+        <div class="game-kicker">
+            Comment ça marche ?
+        </div>
+
+        <h2>
+            Une partie peut commencer en quelques secondes
+        </h2>
+
+    </div>
+
+
+    <div class="gameplay-grid">
+
+
+        <article class="gameplay-card glass-panel">
+
+            <div class="gameplay-number">
+                01
+            </div>
+
+            <h3>
+                Choisissez votre rôle
+            </h3>
+
+            <p>
+                Sélectionnez votre métier et préparez
+                votre équipement.
+            </p>
+
+        </article>
+
+
+        <article class="gameplay-card glass-panel">
+
+            <div class="gameplay-number">
+                02
+            </div>
+
+            <h3>
+                Prenez votre véhicule
+            </h3>
+
+            <p>
+                Sortez du centre et partez explorer
+                la carte.
+            </p>
+
+        </article>
+
+
+        <article class="gameplay-card glass-panel">
+
+            <div class="gameplay-number">
+                03
+            </div>
+
+            <h3>
+                Répondez aux situations
+            </h3>
+
+            <p>
+                Un appel arrive : coordonnez-vous
+                avec les autres joueurs.
+            </p>
+
+        </article>
+
+
+        <article class="gameplay-card glass-panel">
+
+            <div class="gameplay-number">
+                04
+            </div>
+
+            <h3>
+                Créez votre histoire
+            </h3>
+
+            <p>
+                Le reste dépend de vous et de votre
+                imagination.
+            </p>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     GALERIE
+===================================================== -->
+
+<section class="container game-section reveal">
+
+    <div class="game-section-header">
+
+        <div class="game-kicker">
+            En images
+        </div>
+
+        <h2>
+            Découvrez l'univers
+        </h2>
+
+    </div>
+
+
+    <div class="game-gallery">
+
+
+        <div class="gallery-main">
+
+            <img
+                src="https://top-serveurs.net/upload/698b122f79104-96dfdb9d4ab895c6.png"
+                alt="Secours de France RP"
+                loading="lazy"
+            >
+
+        </div>
+
+
+        <div class="gallery-column">
+
+            <div class="gallery-small">
+
+                <img
+                    src="https://top-serveurs.net/upload/6561c4aecb3a4-Snapshot_4.PNG"
+                    alt="Véhicule dans Secours de France RP"
+                    loading="lazy"
+                >
+
+            </div>
+
+
+            <div class="gallery-small">
+
+                <img
+                    src="https://secours2france.fr/admin/uploads.php?path=2026/05/22cf89efd0c2d1a1.png"
+                    alt="Visuel Secours de France RP"
+                    loading="lazy"
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="container game-section reveal">
+
+    <div class="game-cta glass-panel">
+
+
+        <div class="game-cta-content">
+
+            <div class="game-kicker">
+                Prêt à intervenir ?
+            </div>
+
+            <h2>
+                Ton histoire commence maintenant.
+            </h2>
+
+            <p>
+                Rejoins Secours de France RP sur Roblox,
+                choisis ton métier, rencontre la communauté
+                et crée tes propres scènes de roleplay.
+            </p>
+
+        </div>
+
+
+        <div class="game-cta-actions">
+
+            <a
+                href="https://www.roblox.com/fr/games/8392374718/Secours-de-France-RP"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="game-action game-action-primary"
+            >
+
+                <i class="fa-solid fa-gamepad"></i>
+
+                JOUER
+
+            </a>
+
+
+            <a
+                href="https://discord.gg/s2f"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="game-action game-action-discord"
+            >
+
+                <i class="fa-brands fa-discord"></i>
+
+                DISCORD
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <p class="fan-note">
+
+        <strong>Projet fan non officiel.</strong>
+
+        Cette page est une présentation communautaire
+        et n'est pas le site officiel de Secours de France RP,
+        Roblox ou de leurs propriétaires respectifs.
+
+    </p>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer style="
+    padding: 35px 20px 50px;
+    text-align: center;
+    color: #666b7e;
+    font-size: 12px;
+">
+
+    © Secours de France RP — Projet fan non officiel
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+    /* =====================================================
+       NAVBAR
+    ===================================================== */
+
+    window.addEventListener("scroll", () => {
+
+        const navbar =
+            document.getElementById("navbar");
+
+        if (!navbar) return;
+
+        navbar.classList.toggle(
+            "scrolled",
+            window.scrollY > 20
+        );
+
+    });
+
+
+    /* =====================================================
+       MENU MOBILE
+    ===================================================== */
+
+    const mobileButton =
+        document.querySelector(".mobile-menu-btn");
+
+    const mobileMenu =
+        document.querySelector(".mobile-menu");
+
+
+    if (mobileButton && mobileMenu) {
+
+        mobileButton.addEventListener(
+            "click",
+            () => {
+
+                mobileMenu.classList.toggle(
+                    "active"
+                );
+
+            }
+        );
+
+    }
+
+
+    document
+        .querySelectorAll(".mobile-links a")
+        .forEach(link => {
+
+            link.addEventListener(
+                "click",
+                () => {
+
+                    mobileMenu?.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+        });
+
+
+    /* =====================================================
+       REVEAL ANIMATION
+    ===================================================== */
+
+    const revealElements =
+        document.querySelectorAll(".reveal");
+
+
+    const revealObserver =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (!entry.isIntersecting)
+                        return;
+
+                    entry.target.style.opacity = "1";
+
+                    entry.target.style.transform =
+                        "translateY(0)";
+
+                    revealObserver.unobserve(
+                        entry.target
+                    );
+
+                });
+
+            },
+            {
+                threshold: .12
+            }
+        );
+
+
+    revealElements.forEach(element => {
+
+        element.style.opacity = "0";
+
+        element.style.transform =
+            "translateY(25px)";
+
+        element.style.transition =
+            "opacity .7s ease, transform .7s ease";
+
+        revealObserver.observe(element);
+
+    });
+
+
+    /* =====================================================
+       ROBLOX STATS
+    ===================================================== */
+
+    const GROUP_ID = "13409049";
+
+    const UNIVERSE_ID = "3212066780";
+
+
+    async function loadRobloxStats() {
+
+        try {
+
+            const [
+                gameResponse,
+                groupResponse
+            ] = await Promise.all([
+
+                fetch(
+                    `https://games.roproxy.com/v1/games?universeIds=${UNIVERSE_ID}`
+                ),
+
+                fetch(
+                    `https://groups.roproxy.com/v1/groups/${GROUP_ID}`
+                )
+
+            ]);
+
+
+            if (gameResponse.ok) {
+
+                const gameData =
+                    await gameResponse.json();
+
+                const game =
+                    gameData?.data?.[0];
+
+
+                if (game) {
+
+                    document.getElementById(
+                        "live-players"
+                    ).textContent =
+                        Number(
+                            game.playing || 0
+                        ).toLocaleString("fr-FR");
+
+
+                    document.getElementById(
+                        "game-visits"
+                    ).textContent =
+                        Number(
+                            game.visits || 0
+                        ).toLocaleString("fr-FR");
+
+
+                    document.getElementById(
+                        "game-favorites"
+                    ).textContent =
+                        Number(
+                            game.favoritedCount || 0
+                        ).toLocaleString("fr-FR");
+
+                }
+
+            }
+
+
+            if (groupResponse.ok) {
+
+                const groupData =
+                    await groupResponse.json();
+
+
+                if (
+                    groupData &&
+                    groupData.memberCount !== undefined
+                ) {
+
+                    document.getElementById(
+                        "group-members"
+                    ).textContent =
+                        Number(
+                            groupData.memberCount
+                        ).toLocaleString("fr-FR");
+
+                }
+
+            }
+
+        } catch (error) {
+
+            console.warn(
+                "Impossible de récupérer les statistiques Roblox.",
+                error
+            );
+
+        }
+
+    }
+
+
+    loadRobloxStats();
+
+
+    /* Actualisation toutes les minutes */
+
+    setInterval(
+        loadRobloxStats,
+        60000
+    );
+
+
+    /* =====================================================
+       RECHERCHE
+    ===================================================== */
+
+    const searchModal =
+        document.getElementById(
+            "search-modal"
+        );
+
+    const searchInput =
+        document.getElementById(
+            "search-input"
+        );
+
+    const searchResults =
+        document.getElementById(
+            "search-results"
+        );
+
+
+    const searchData = [
+
+        {
+            title: "Le jeu",
+            url: "jeu.html"
+        },
+
+        {
+            title: "Les métiers",
+            url: "métiers.html"
+        },
+
+        {
+            title: "Les véhicules",
+            url: "404.html"
+        },
+
+        {
+            title: "Les événements",
+            url: "404.html"
+        },
+
+        {
+            title: "La galerie",
+            url: "404.html"
+        },
+
+        {
+            title: "Les guides",
+            url: "404.html"
+        }
+
+    ];
+
+
+    function openSearch() {
+
+        if (!searchModal)
+            return;
+
+        searchModal.classList.add(
+            "active"
+        );
+
+        searchModal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        document.body.style.overflow =
+            "hidden";
+
+        searchInput?.focus();
+
+    }
+
+
+    function closeSearch() {
+
+        if (!searchModal)
+            return;
+
+        searchModal.classList.remove(
+            "active"
+        );
+
+        searchModal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        if (searchInput)
+            searchInput.value = "";
+
+        if (searchResults)
+            searchResults.innerHTML = "";
+
+        document.body.style.overflow =
+            "";
+
+    }
+
+
+    if (searchInput) {
+
+        searchInput.addEventListener(
+            "input",
+            () => {
+
+                const query =
+                    searchInput.value
+                        .trim()
+                        .toLowerCase();
+
+
+                if (query.length < 2) {
+
+                    searchResults.innerHTML =
+                        "";
+
+                    return;
+
+                }
+
+
+                const results =
+                    searchData.filter(
+                        item =>
+                            item.title
+                                .toLowerCase()
+                                .includes(query)
+                    );
+
+
+                if (!results.length) {
+
+                    searchResults.innerHTML =
+                        `<li class="no-result">
+                            Aucun résultat trouvé.
+                        </li>`;
+
+                    return;
+
+                }
+
+
+                searchResults.innerHTML =
+                    results.map(
+                        item => `
+                            <li>
+                                <a
+                                    href="${item.url}"
+                                    onclick="closeSearch()"
+                                >
+                                    ${item.title}
+                                </a>
+                            </li>
+                        `
+                    ).join("");
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       ESC POUR FERMER LA RECHERCHE
+    ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Escape") {
+
+                closeSearch();
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
